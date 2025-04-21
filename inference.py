@@ -34,21 +34,28 @@ model.load_state_dict(ckpt["state_dict"])
 # Get preprocessing function
 preprocessing = model.get_preprocessing()
 
+import pandas as pd
+image_dir_base = "/scratch/jlee436/cs584/data/"
+# Load 20 images
+df_val = pd.read_csv("val_split.csv")
+paths = [os.path.join(image_dir_base, image) for image in df_val["file_name"].tolist()[:20]]
+
+
 # Load some images
-paths = [
-    "datasets/CDFv2/Celeb-synthesis/id0_id1_0000/000.png",
-    "datasets/CDFv2/Celeb-synthesis/id0_id1_0000/045.png",
-    "datasets/CDFv2/Celeb-synthesis/id0_id1_0000/030.png",
-    "datasets/CDFv2/Celeb-synthesis/id0_id1_0000/015.png",
-    "datasets/CDFv2/YouTube-real/00000/000.png",
-    "datasets/CDFv2/YouTube-real/00000/014.png",
-    "datasets/CDFv2/YouTube-real/00000/028.png",
-    "datasets/CDFv2/YouTube-real/00000/043.png",
-    "datasets/CDFv2/Celeb-real/id0_0000/045.png",
-    "datasets/CDFv2/Celeb-real/id0_0000/030.png",
-    "datasets/CDFv2/Celeb-real/id0_0000/015.png",
-    "datasets/CDFv2/Celeb-real/id0_0000/000.png",
-]
+# paths = [
+#     "datasets/CDFv2/Celeb-synthesis/id0_id1_0000/000.png",
+#     "datasets/CDFv2/Celeb-synthesis/id0_id1_0000/045.png",
+#     "datasets/CDFv2/Celeb-synthesis/id0_id1_0000/030.png",
+#     "datasets/CDFv2/Celeb-synthesis/id0_id1_0000/015.png",
+#     "datasets/CDFv2/YouTube-real/00000/000.png",
+#     "datasets/CDFv2/YouTube-real/00000/014.png",
+#     "datasets/CDFv2/YouTube-real/00000/028.png",
+#     "datasets/CDFv2/YouTube-real/00000/043.png",
+#     "datasets/CDFv2/Celeb-real/id0_0000/045.png",
+#     "datasets/CDFv2/Celeb-real/id0_0000/030.png",
+#     "datasets/CDFv2/Celeb-real/id0_0000/015.png",
+#     "datasets/CDFv2/Celeb-real/id0_0000/000.png",
+# ]
 
 # To pillow images
 pillow_images = [Image.open(image) for image in paths]
